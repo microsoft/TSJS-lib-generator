@@ -1590,9 +1590,17 @@ interface StereoPannerOptions extends AudioNodeOptions {
     pan?: number;
 }
 
+interface StorageEstimateUsageDetails {
+    caches?: number;
+    indexedDB?: number;
+    serviceWorkerRegistrations?: number;
+    [key: string]: number;
+}
+
 interface StorageEstimate {
     quota?: number;
     usage?: number;
+    usageDetails?: StorageEstimateUsageDetails
 }
 
 interface StorageEventInit extends EventInit {
