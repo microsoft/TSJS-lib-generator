@@ -47,7 +47,8 @@
                     "sctp-transport",
                     "ice-server"
                 ]
-            }
+            },
+            "ValueType": null
         }
     },
     "interfaces": {

@@ -50,6 +50,7 @@
         "RTCStatsType",
         "RTCTransportStats",
         "Transferable",
+        "ValueTypeMap",
         "VideoFacingModeEnum"
     ],
     "Worker": [
@@ -80,10 +81,12 @@
         "RsaKeyGenParams",
         "RsaOaepParams",
         "RsaPssParams",
-        "Transferable"
+        "Transferable",
+        "ValueTypeMap"
     ],
     "Worklet": [
         "EventListenerOrEventListenerObject",
-        "Transferable"
+        "Transferable",
+        "ValueTypeMap"
     ]
 }

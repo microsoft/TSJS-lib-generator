@@ -371,9 +371,6 @@
             },
             "TableKind": {
                 "legacyNamespace": "WebAssembly"
-            },
-            "ValueType": {
-                "legacyNamespace": "WebAssembly"
             }
         }
     },
@@ -2802,6 +2799,37 @@
                     }
                 }
             },
+            "Global": {
+                "name": "Global",
+                "typeParameters": [
+                    {
+                        "name": "T",
+                        "extends": "ValueType",
+                        "default": "ValueType"
+                    }
+                ],
+                "constructor": {
+                    "overrideSignatures": [
+                        "new<T extends ValueType = ValueType>(descriptor: GlobalDescriptor<T>, v?: ValueTypeMap[T]): Global<T>"
+                    ]
+                },
+                "properties": {
+                    "property": {
+                        "value": {
+                            "overrideType": "ValueTypeMap[T]"
+                        }
+                    }
+                },
+                "methods": {
+                    "method": {
+                        "valueOf": {
+                            "overrideSignatures": [
+                                "valueOf(): ValueTypeMap[T]"
+                            ]
+                        }
+                    }
+                }
+            },
 
             // https://github.com/w3c/media-source/pull/282, but not supported anywhere yet
             "MediaSource": {
@@ -3096,7 +3124,21 @@
                 "legacyNamespace": "WebAssembly"
             },
             "GlobalDescriptor": {
-                "legacyNamespace": "WebAssembly"
+                "legacyNamespace": "WebAssembly",
+                "typeParameters": [
+                    {
+                        "name": "T",
+                        "extends": "ValueType",
+                        "default": "ValueType"
+                    }
+                ],
+                "members": {
+                    "member": {
+                        "value": {
+                            "overrideType": "T"
+                        }
+                    }
+                }
             },
             "WebAssemblyInstantiatedSource": {
                 "legacyNamespace": "WebAssembly"
