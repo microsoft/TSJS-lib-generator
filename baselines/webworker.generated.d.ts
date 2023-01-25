@@ -3056,6 +3056,18 @@ declare var Response: {
     redirect(url: string | URL, status?: number): Response;
 };
 
+interface SchedulerPostTaskOptions {
+    delay?: number;
+    priority?: TaskPriority;
+    signal?: AbortSignal;
+}
+
+interface Scheduler {
+    postTask<T, P extends readonly unknown[] | []>(callback: (...params: P) => T, options?: SchedulerPostTaskOptions, ...arguments: P): Promise<T>;
+}
+
+declare var scheduler: Scheduler;
+
 /** Inherits from Event, and represents the event object of an event sent on a document or worker when its content security policy is violated. */
 interface SecurityPolicyViolationEvent extends Event {
     readonly blockedURI: string;
@@ -3263,6 +3275,22 @@ declare var SubtleCrypto: {
     prototype: SubtleCrypto;
     new(): SubtleCrypto;
 };
+
+interface TaskSignal extends AbortSignal {
+    readonly priority: TaskPriority;
+    onprioritychange: ((this: TaskSignal, ev: Event) => any) | null;
+    addEventListener<K extends keyof TaskSignalEventMap>(type: K, listener: (this: TaskSignal, ev: TaskSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof TaskSignalEventMap>(type: K, listener: (this: TaskSignal, ev: TaskSignalEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+}
+
+declare var TaskSignal: {
+    prototype: TaskSignal;
+    new(): TaskSignal;
+}
+
+interface TaskSignalEventMap {
+    "prioritychange": Event;
+}
 
 /** A decoder for a specific method, that is a specific character encoding, like utf-8, iso-8859-2, koi8, cp1261, gbk, etc. A decoder takes a stream of bytes as input and emits a stream of code points. For a more scalable, non-native library, see StringView – a C-like representation of strings based on typed arrays. */
 interface TextDecoder extends TextDecoderCommon {
@@ -6201,6 +6229,7 @@ type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaquer
 type SecurityPolicyViolationEventDisposition = "enforce" | "report";
 type ServiceWorkerState = "activated" | "activating" | "installed" | "installing" | "parsed" | "redundant";
 type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";
+type TaskPriority = "user-blocking" | "user-visible" | "background";
 type TransferFunction = "hlg" | "pq" | "srgb";
 type VideoColorPrimaries = "bt470bg" | "bt709" | "smpte170m";
 type VideoMatrixCoefficients = "bt470bg" | "bt709" | "rgb" | "smpte170m";

@@ -1671,6 +1671,18 @@ interface SVGBoundingBoxOptions {
     stroke?: boolean;
 }
 
+interface SchedulerPostTaskOptions {
+    delay?: number;
+    priority?: TaskPriority;
+    signal?: AbortSignal;
+}
+
+interface Scheduler {
+    postTask<T, P extends readonly unknown[] | []>(callback: (...params: P) => T, options?: SchedulerPostTaskOptions, ...arguments: P): Promise<T>;
+}
+
+declare var scheduler: Scheduler;
+
 interface ScrollIntoViewOptions extends ScrollOptions {
     block?: ScrollLogicalPosition;
     inline?: ScrollLogicalPosition;
@@ -1779,6 +1791,22 @@ interface StructuredSerializeOptions {
 
 interface SubmitEventInit extends EventInit {
     submitter?: HTMLElement | null;
+}
+
+interface TaskSignal extends AbortSignal {
+    readonly priority: TaskPriority;
+    onprioritychange: ((this: TaskSignal, ev: Event) => any) | null;
+    addEventListener<K extends keyof TaskSignalEventMap>(type: K, listener: (this: TaskSignal, ev: TaskSignalEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof TaskSignalEventMap>(type: K, listener: (this: TaskSignal, ev: TaskSignalEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+}
+
+declare var TaskSignal: {
+    prototype: TaskSignal;
+    new(): TaskSignal;
+}
+
+interface TaskSignalEventMap {
+    "prioritychange": Event;
 }
 
 interface TextDecodeOptions {
@@ -18694,6 +18722,7 @@ type ServiceWorkerUpdateViaCache = "all" | "imports" | "none";
 type ShadowRootMode = "closed" | "open";
 type SlotAssignmentMode = "manual" | "named";
 type SpeechSynthesisErrorCode = "audio-busy" | "audio-hardware" | "canceled" | "interrupted" | "invalid-argument" | "language-unavailable" | "network" | "not-allowed" | "synthesis-failed" | "synthesis-unavailable" | "text-too-long" | "voice-unavailable";
+type TaskPriority = "user-blocking" | "user-visible" | "background";
 type TextTrackKind = "captions" | "chapters" | "descriptions" | "metadata" | "subtitles";
 type TextTrackMode = "disabled" | "hidden" | "showing";
 type TouchType = "direct" | "stylus";
