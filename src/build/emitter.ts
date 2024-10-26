@@ -135,7 +135,7 @@ function isEventHandler(p: Browser.Property) {
 export function emitWebIdl(
   webidl: Browser.WebIdl,
   global: string,
-  iterator: "" | "sync" | "async",
+  flavor: "" | "iterator" | "asyncIterator" | "toStringTag",
   useIteratorObject: boolean,
 ): string {
   // Global print target
@@ -231,10 +231,12 @@ export function emitWebIdl(
     getParentsWithConstant,
   );
 
-  switch (iterator) {
-    case "sync":
+  switch (flavor) {
+    case "toStringTag":
+      return emitES6ToStringTag();
+    case "iterator":
       return emitES6DomIterators();
-    case "async":
+    case "asyncIterator":
       return emitES2018DomAsyncIterators();
     default:
       return emit();
@@ -423,7 +425,7 @@ export function emitWebIdl(
   }
 
   function convertDomTypeToTsTypeSimple(objDomType: string): string {
-    if (objDomType === "sequence" && iterator !== "") {
+    if (objDomType === "sequence" && flavor !== "") {
       return "Iterable";
     }
     if (baseTypeConversionMap.has(objDomType)) {
@@ -1800,6 +1802,35 @@ export function emitWebIdl(
 
     printer.decreaseIndent();
     printer.printLine("}");
+  }
+
+  function emitES6ToStringTag() {
+    printer.reset();
+    printer.printLine("/////////////////////////////");
+    printer.printLine(`/// ${global} [Symbol.toStringTag] APIs`);
+    printer.printLine("/////////////////////////////");
+
+    const toStringTagProperty = {
+      type: "USVString",
+      name: "[Symbol.toStringTag]",
+      readonly: true,
+    };
+
+    const interfaces = getElements(webidl.interfaces, "interface");
+    interfaces.sort(compareName).forEach((i) => {
+      if (!i.noInterfaceObject && !i.extends && !i.legacyNamespace) {
+        printer.printLine("");
+        printer.printLine(`interface ${i.name} {`);
+        printer.increaseIndent();
+
+        emitProperty("", i, EmitScope.InstanceOnly, toStringTagProperty);
+
+        printer.decreaseIndent();
+        printer.printLine("}");
+      }
+    });
+
+    return printer.getResult();
   }
 
   function emitES6DomIterators() {

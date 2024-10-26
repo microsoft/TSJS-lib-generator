@@ -60,10 +60,21 @@ async function emitFlavor(
     result,
   );
 
+  const toStringTag = emitWebIdl(
+    exposed,
+    options.global[0],
+    "toStringTag",
+    options.useIteratorObject,
+  );
+  await fs.writeFile(
+    new URL(`${options.name}.tostringtag.generated.d.ts`, options.outputFolder),
+    toStringTag,
+  );
+
   const iterators = emitWebIdl(
     exposed,
     options.global[0],
-    "sync",
+    "iterator",
     options.useIteratorObject,
   );
   await fs.writeFile(
@@ -74,7 +85,7 @@ async function emitFlavor(
   const asyncIterators = emitWebIdl(
     exposed,
     options.global[0],
-    "async",
+    "asyncIterator",
     options.useIteratorObject,
   );
   await fs.writeFile(
