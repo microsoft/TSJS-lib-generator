@@ -550,6 +550,7 @@ interface RequestInit {
     referrer?: string;
     /** A referrer policy to set request's referrerPolicy. */
     referrerPolicy?: ReferrerPolicy;
+    sharedStorageWritable?: boolean;
     /** An AbortSignal to set request's signal. */
     signal?: AbortSignal | null;
     /** Can only be null. Used to disassociate request from any Window. */
@@ -652,6 +653,7 @@ interface TextEncoderEncodeIntoResult {
 }
 
 interface Transformer<I = any, O = any> {
+    cancel?: TransformerCancelCallback;
     flush?: TransformerFlushCallback<O>;
     readableType?: undefined;
     start?: TransformerStartCallback<O>;
@@ -4487,7 +4489,7 @@ declare var PushMessageData: {
 };
 
 /**
- * This Push API interface provides a subcription's URL endpoint and allows unsubscription from a push service.
+ * This Push API interface provides a subscription'sURL endpoint and allows unsubscription from a push service.
  * Available only in secure contexts.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushSubscription)
@@ -7849,7 +7851,7 @@ interface WebSocket extends EventTarget {
      */
     readonly url: string;
     /**
-     * Closes the WebSocket connection, optionally using code as the the WebSocket connection close code and reason as the the WebSocket connection close reason.
+     * Closes the WebSocket connection, optionally using code as the WebSocket connection close code and reason as the WebSocket connection close reason.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/WebSocket/close)
      */
@@ -8438,6 +8440,10 @@ interface QueuingStrategySize<T = any> {
 
 interface ReportingObserverCallback {
     (reports: Report[], observer: ReportingObserver): void;
+}
+
+interface TransformerCancelCallback {
+    (reason: any): void | PromiseLike<void>;
 }
 
 interface TransformerFlushCallback<O> {

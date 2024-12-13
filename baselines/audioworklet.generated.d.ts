@@ -140,6 +140,7 @@ interface TextEncoderEncodeIntoResult {
 }
 
 interface Transformer<I = any, O = any> {
+    cancel?: TransformerCancelCallback;
     flush?: TransformerFlushCallback<O>;
     readableType?: undefined;
     start?: TransformerStartCallback<O>;
@@ -1378,6 +1379,10 @@ interface AudioWorkletProcessorConstructor {
 
 interface QueuingStrategySize<T = any> {
     (chunk: T): number;
+}
+
+interface TransformerCancelCallback {
+    (reason: any): void | PromiseLike<void>;
 }
 
 interface TransformerFlushCallback<O> {
