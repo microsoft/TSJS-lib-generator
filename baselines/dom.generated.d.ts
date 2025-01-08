@@ -6374,7 +6374,7 @@ declare var Credential: {
  */
 interface CredentialsContainer {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CredentialsContainer/create) */
-    create(options?: CredentialCreationOptions): Promise<Credential | null>;
+    create(options?: CredentialCreationOptions): Promise<PublicKeyCredential | null>;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CredentialsContainer/get) */
     get(options?: CredentialRequestOptions): Promise<Credential | null>;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/CredentialsContainer/preventSilentAccess) */

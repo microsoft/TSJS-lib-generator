@@ -3609,6 +3609,19 @@
                         }
                     }
                 }
+            },
+            "CredentialsContainer": {
+                "methods": {
+                    "method": {
+                        "create": {
+                            "signature": {
+                                "0": {
+                                    "overrideType": "Promise<PublicKeyCredential | null>"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
