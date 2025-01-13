@@ -16,7 +16,7 @@
     "baseline-accept": "cpx \"generated\\**\" baselines\\",
     "lint": "eslint --max-warnings 0 src deploy/*.js && tsc -p deploy/jsconfig.json",
     "lint-fix": "eslint --max-warnings 0 src deploy/*.js --fix",
-    "test": "npm run lint && npm run build && node ./lib/test.js && node ./unittests/index.js",
+    "test": "npm run build && npm run lint && node ./lib/test.js && node ./unittests/index.js",
     "changelog": "tsc && node ./lib/changelog.js",
     "ts-changelog": "node ./deploy/versionChangelog.js",
     "migrate": "node ./deploy/migrate.js",
