@@ -1,12 +1,6 @@
 {
     "mixins": {
         "mixin": {
-            "ChildNode": {
-                "extends": "Node"
-            },
-            "ParentNode": {
-                "extends": "Node"
-            },
             "Animatable": {
                 "methods": {
                     "method": {
@@ -1023,25 +1017,25 @@
                 "properties": {
                     "property": {
                         "parentNode": {
-                            "overrideType": "ParentNode"
+                            "overrideType": "Node & ParentNode"
                         },
                         "parentElement": {
                             "overrideType": "HTMLElement"
                         },
                         "childNodes": {
-                            "overrideType": "NodeListOf<ChildNode>"
+                            "overrideType": "NodeListOf<Node & ChildNode>"
                         },
                         "firstChild": {
-                            "overrideType": "ChildNode"
+                            "overrideType": "Node & ChildNode"
                         },
                         "lastChild": {
-                            "overrideType": "ChildNode"
+                            "overrideType": "Node & ChildNode"
                         },
                         "nextSibling": {
-                            "overrideType": "ChildNode"
+                            "overrideType": "Node & ChildNode"
                         },
                         "previousSibling": {
-                            "overrideType": "ChildNode"
+                            "overrideType": "Node & ChildNode"
                         }
                     }
                 }
@@ -1414,9 +1408,6 @@
                         }
                     }
                 }
-            },
-            "SVGSymbolElement": {
-                "extends": "SVGElement"
             },
             "FormData": {
                 "methods": {
