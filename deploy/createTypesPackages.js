@@ -19,6 +19,8 @@ export const packages = [
       { from: "../generated/dom.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
       { from: "../generated/ts5.5/dom.generated.d.ts", to: "ts5.5/index.d.ts", index: true, group: "ts5.5" },
       { from: "../generated/ts5.5/dom.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true, group: "ts5.5" },
+      { from: "../generated/module/dom.generated.d.ts", to: "module/index.d.ts", group: "module" },
+      { from: "../generated/module/dom.iterable.generated.d.ts", to: "module/iterable.d.ts", group: "module" },
     ],
   },
   {
@@ -30,6 +32,8 @@ export const packages = [
       { from: "../generated/serviceworker.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
       { from: "../generated/ts5.5/serviceworker.generated.d.ts", to: "ts5.5/index.d.ts", index: true, group: "ts5.5" },
       { from: "../generated/ts5.5/serviceworker.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true , group: "ts5.5" },
+      { from: "../generated/module/serviceworker.generated.d.ts", to: "module/index.d.ts", group: "module" },
+      { from: "../generated/module/serviceworker.iterable.generated.d.ts", to: "module/iterable.d.ts", group: "module" },
     ],
   },
   {
@@ -41,6 +45,8 @@ export const packages = [
       { from: "../generated/audioworklet.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
       { from: "../generated/ts5.5/audioworklet.generated.d.ts", to: "ts5.5/index.d.ts", index: true, group: "ts5.5" },
       { from: "../generated/ts5.5/audioworklet.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true , group: "ts5.5" },
+      { from: "../generated/module/audioworklet.generated.d.ts", to: "module/index.d.ts", group: "module" },
+      { from: "../generated/module/audioworklet.iterable.generated.d.ts", to: "module/iterable.d.ts", group: "module" },
     ],
   },
   {
@@ -52,6 +58,8 @@ export const packages = [
       { from: "../generated/sharedworker.iterable.generated.d.ts", to: "iterable.d.ts", autoImport: true },
       { from: "../generated/ts5.5/sharedworker.generated.d.ts", to: "ts5.5/index.d.ts", index: true, group: "ts5.5" },
       { from: "../generated/ts5.5/sharedworker.iterable.generated.d.ts", to: "ts5.5/iterable.d.ts", autoImport: true, group: "ts5.5" },
+      { from: "../generated/module/sharedworker.generated.d.ts", to: "module/index.d.ts", group: "module" },
+      { from: "../generated/module/sharedworker.iterable.generated.d.ts", to: "module/iterable.d.ts", group: "module" },
     ],
   },
 ];

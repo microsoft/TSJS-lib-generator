@@ -2,6 +2,7 @@ import * as fs from "fs";
 import child_process from "child_process";
 import { printUnifiedDiff } from "print-diff";
 import { fileURLToPath } from "url";
+import path from "path";
 
 const baselineFolder = new URL("../baselines/", import.meta.url);
 const outputFolder = new URL("../generated/", import.meta.url);
@@ -85,13 +86,21 @@ function compareToBaselines(baselineFolder: URL, outputFolder: URL) {
   return true;
 }
 
-function compileGeneratedFiles(lib: string, ...files: string[]) {
+function compileGeneratedFiles(lib: string, folder: URL, ...files: string[]) {
   try {
+    console.log("Testing:");
+    console.log("\tlib:", lib);
+    console.log(
+      "\tfolder:",
+      path.relative(fileURLToPath(import.meta.url), fileURLToPath(folder)),
+    );
+    console.log("\tfiles:", files.join(","));
+
     child_process.execSync(
       `node ${fileURLToPath(
         tscPath,
       )} --strict --lib ${lib} --types --noEmit ${files
-        .map((file) => fileURLToPath(new URL(file, outputFolder)))
+        .map((file) => fileURLToPath(new URL(file, folder)))
         .join(" ")}`,
     );
   } catch (e: any) {
@@ -106,61 +115,80 @@ function compileGeneratedFiles(lib: string, ...files: string[]) {
 function test() {
   if (
     compareToBaselines(baselineFolder, outputFolder) &&
-    compileGeneratedFiles("es5", "dom.generated.d.ts") &&
-    compileGeneratedFiles(
-      "es6",
-      "dom.generated.d.ts",
-      "dom.iterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles(
-      "es2018",
-      "dom.generated.d.ts",
-      "dom.asynciterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles("es5", "webworker.generated.d.ts") &&
-    compileGeneratedFiles(
-      "es6",
-      "webworker.generated.d.ts",
-      "webworker.iterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles(
-      "es2018",
-      "webworker.generated.d.ts",
-      "webworker.asynciterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles("es5", "sharedworker.generated.d.ts") &&
-    compileGeneratedFiles(
-      "es6",
-      "sharedworker.generated.d.ts",
-      "sharedworker.iterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles(
-      "es2018",
-      "sharedworker.generated.d.ts",
-      "sharedworker.asynciterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles("es5", "serviceworker.generated.d.ts") &&
-    compileGeneratedFiles(
-      "es6",
-      "serviceworker.generated.d.ts",
-      "serviceworker.iterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles(
-      "es2018",
-      "serviceworker.generated.d.ts",
-      "serviceworker.asynciterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles("es5", "audioworklet.generated.d.ts") &&
-    compileGeneratedFiles(
-      "es6",
-      "audioworklet.generated.d.ts",
-      "audioworklet.iterable.generated.d.ts",
-    ) &&
-    compileGeneratedFiles(
-      "es2018",
-      "audioworklet.generated.d.ts",
-      "audioworklet.asynciterable.generated.d.ts",
-    )
+    [
+      outputFolder,
+      new URL("ts5.5", outputFolder),
+      new URL("modules", outputFolder),
+    ].reduce((result, folder) => {
+      return (
+        result &&
+        compileGeneratedFiles("es5", folder, "dom.generated.d.ts") &&
+        compileGeneratedFiles(
+          "es6",
+          folder,
+          "dom.generated.d.ts",
+          "dom.iterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles(
+          "es2018",
+          folder,
+          "dom.generated.d.ts",
+          "dom.asynciterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles("es5", folder, "webworker.generated.d.ts") &&
+        compileGeneratedFiles(
+          "es6",
+          folder,
+          "webworker.generated.d.ts",
+          "webworker.iterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles(
+          "es2018",
+          folder,
+          "webworker.generated.d.ts",
+          "webworker.asynciterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles("es5", folder, "sharedworker.generated.d.ts") &&
+        compileGeneratedFiles(
+          "es6",
+          folder,
+          "sharedworker.generated.d.ts",
+          "sharedworker.iterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles(
+          "es2018",
+          folder,
+          "sharedworker.generated.d.ts",
+          "sharedworker.asynciterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles("es5", folder, "serviceworker.generated.d.ts") &&
+        compileGeneratedFiles(
+          "es6",
+          folder,
+          "serviceworker.generated.d.ts",
+          "serviceworker.iterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles(
+          "es2018",
+          folder,
+          "serviceworker.generated.d.ts",
+          "serviceworker.asynciterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles("es5", folder, "audioworklet.generated.d.ts") &&
+        compileGeneratedFiles(
+          "es6",
+          folder,
+          "audioworklet.generated.d.ts",
+          "audioworklet.iterable.generated.d.ts",
+        ) &&
+        compileGeneratedFiles(
+          "es2018",
+          folder,
+          "audioworklet.generated.d.ts",
+          "audioworklet.asynciterable.generated.d.ts",
+        )
+      );
+    }, true)
   ) {
     console.log("All tests passed.");
     process.exit(0);

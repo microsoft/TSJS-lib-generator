@@ -35,6 +35,17 @@ Removing `"dom"` gives @types/web the chance to provide the same set of global d
 
 </details>
 
+## Importing types as a module
+
+This package also features a module entrypoint, enabling imports of types without pollution of the global namespace:
+
+```typescript
+import type { Window } from "web/module";
+
+function printLocation(window: Window) {
+  console.log(window.location.href);
+}
+```
 
 ## SemVer
 
