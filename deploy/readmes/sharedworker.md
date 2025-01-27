@@ -20,6 +20,18 @@ To use `@types/sharedworker` you need to do two things:
 
 If you'd like to ensure that the DOM types are never accidentally included, you can use [@orta/types-noop](https://www.npmjs.com/package/@orta/type-noops) in TypeScript 4.5+.
 
+## Importing types as a module
+
+This package also features a module entrypoint, enabling imports of types without pollution of the global namespace:
+
+```typescript
+import type { SharedWorkerGlobalScope } from "sharedworker/module";
+
+function printName(scope: SharedWorkerGlobalScope) {
+  console.log(scope.name);
+}
+```
+
 ## SemVer
 
 This project does not respect semantic versioning as almost every change could potentially break a project, though we try to minimize removing types.
