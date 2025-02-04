@@ -679,7 +679,6 @@
                     "member": {
                         "adAuctionHeaders": null, // Blink only as of 2023-11
                         "attributionReporting": null, // Blink only as of 2023-10
-                        "duplex": null, // Blink only as of 2023-09
                         "privateToken": null, // Blink only as of 2023-09
                         "sharedStorageWritable": null, // Blink only as of 2023-10
                         "targetAddressSpace": null // Blink only as of 2023-09

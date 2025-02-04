@@ -499,6 +499,7 @@ interface RequestInit {
     cache?: RequestCache;
     /** A string indicating whether credentials will be sent with the request always, never, or only when sent to a same-origin URL. Sets request's credentials. */
     credentials?: RequestCredentials;
+    duplex?: RequestDuplex;
     /** A Headers object, an object literal, or an array of two-item arrays to set request's headers. */
     headers?: HeadersInit;
     /** A cryptographic hash of the resource to be fetched by request. Sets request's integrity. */
@@ -8720,6 +8721,7 @@ type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origi
 type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-if-cached" | "reload";
 type RequestCredentials = "include" | "omit" | "same-origin";
 type RequestDestination = "" | "audio" | "audioworklet" | "document" | "embed" | "font" | "frame" | "iframe" | "image" | "manifest" | "object" | "paintworklet" | "report" | "script" | "sharedworker" | "style" | "track" | "video" | "worker" | "xslt";
+type RequestDuplex = "half";
 type RequestMode = "cors" | "navigate" | "no-cors" | "same-origin";
 type RequestPriority = "auto" | "high" | "low";
 type RequestRedirect = "error" | "follow" | "manual";
