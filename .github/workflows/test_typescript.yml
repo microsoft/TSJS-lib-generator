@@ -8,6 +8,16 @@ on:
       - "baselines/*"
 
 
+# When it's ready
+# on:
+#   push:
+#     paths:
+#       - "baselines/*"
+#   pull_request:
+#     paths:
+#       - "baselines/*"
+
+
 jobs:
   test:
     runs-on: ubuntu-latest

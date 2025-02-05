@@ -1,0 +1,56 @@
+name: Test DT subset
+on: [pull_request]
+
+jobs:
+  test_shard:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job_position: [1, 2, 3, 4, 5, 6]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "15.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm install
+      - run: npm run build
+
+      - name: Setup
+        run: |
+          mkdir tester
+          cd tester
+          yarn init -y
+          yarn add typescript@next
+          yarn add @definitelytyped/dtslint-runner
+          
+      - name: Tests
+        run: |
+          cd tester
+          echo "Nightly run: Shard $SYSTEM_JOBPOSITIONINPHASE of $SYSTEM_TOTALJOBSINPHASE"
+          yarn dtslint-runner --clone --localTypeScriptPath node_modules/typescript/lib --selection all --expectOnly --shardId $SYSTEM_JOBPOSITIONINPHASE --shardCount $SYSTEM_TOTALJOBSINPHASE 2>nightlyErrors.txt
+      
+          cp $GITHUB_WORKSPACE/generated/dom.generated.d.ts node_modules/typescript/lib/lib.dom.d.ts
+          cp $GITHUB_WORKSPACE/generated/dom.iterable.generated.d.ts node_modules/typescript/lib/lib.dom.iterable.d.ts
+          cp $GITHUB_WORKSPACE/generated/webworker.generated.d.ts node_modules/typescript/lib/lib.webworker.d.ts
+          cp $GITHUB_WORKSPACE/generated/webworker.iterable.generated.d.ts node_modules/typescript/lib/lib.webworker.iterable.d.ts
+
+          echo "Branch run - Shard $SYSTEM_JOBPOSITIONINPHASE of $SYSTEM_TOTALJOBSINPHASE"
+          yarn dtslint-runner --clone --localTypeScriptPath node_modules/typescript/lib --selection all --expectOnly --shardId $SYSTEM_JOBPOSITIONINPHASE --shardCount $SYSTEM_TOTALJOBSINPHASE 2>branchErrors.txt
+          branchRunResult=$
+
+          echo
+          echo "=== Errors only in nightly ==="
+          diff --changed-group-format='%<' --unchanged-group-format='' nightlyErrors.txt branchErrors.txt | egrep -v '^(===|[12]>)'
+
+          echo
+          echo "=== Errors only in branch ==="
+          diff --changed-group-format='%>' --unchanged-group-format='' nightlyErrors.txt branchErrors.txt  | egrep -v '^(===|[12]>)'
+
+          exit $branchRunResult
+        continue-on-error: true
+        env:
+          SYSTEM_JOBPOSITIONINPHASE: ${{ matrix.job_position }}
+          SYSTEM_TOTALJOBSINPHASE: "6"
+      
