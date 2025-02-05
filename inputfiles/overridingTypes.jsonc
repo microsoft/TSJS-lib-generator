@@ -3263,29 +3263,95 @@
                 }
             },
             "EventTarget": {
+                "typeParameters": [
+                    {
+                        "name": "T",
+                        "default": "any"
+                    }
+                ],
                 "methods": {
                     "method": {
                         "addEventListener": {
                             "signature": {
                                 "0": {
+                                    "typeParameters": [
+                                        {
+                                            "name": "K extends keyof T",
+                                            "default": ""
+                                        }
+                                    ],
                                     "param": [
+                                        {
+                                            "name": "type",
+                                            "overrideType": "K"
+                                        },
+                                        {
+                                            "name": "callback",
+                                            "overrideType": "(this: EventTarget<T>, ev: T[K]) => any",
+                                            "nullable": false
+                                        }
+                                    ],
+                                    "overrideType": "void"
+                                },
+                                "1": {
+                                    "param": [
+                                        {
+                                            "name": "type",
+                                            "overrideType": "string"
+                                        },
                                         {
                                             "name": "callback",
                                             "overrideType": "EventListenerOrEventListenerObject"
+                                        },
+                                        {
+                                            "name": "options",
+                                            "overrideType": "AddEventListenerOptions | boolean",
+                                            "optional": true
                                         }
-                                    ]
+                                    ],
+                                    "overrideType": "void"
                                 }
                             }
                         },
                         "removeEventListener": {
                             "signature": {
                                 "0": {
+                                    "typeParameters": [
+                                        {
+                                            "name": "K extends keyof T",
+                                            "default": ""
+                                        }
+                                    ],
                                     "param": [
+                                        {
+                                            "name": "type",
+                                            "overrideType": "K"
+                                        },
+                                        {
+                                            "name": "callback",
+                                            "overrideType": "(this: EventTarget<T>, ev: T[K]) => any",
+                                            "nullable": false
+                                        }
+                                    ],
+                                    "overrideType": "void"
+                                },
+                                "1": {
+                                    "param": [
+                                        {
+                                            "name": "type",
+                                            "overrideType": "string"
+                                        },
                                         {
                                             "name": "callback",
                                             "overrideType": "EventListenerOrEventListenerObject"
+                                        },
+                                        {
+                                            "name": "options",
+                                            "overrideType": "EventListenerOptions | boolean",
+                                            "optional": true
                                         }
-                                    ]
+                                    ],
+                                    "overrideType": "void"
                                 }
                             }
                         }
