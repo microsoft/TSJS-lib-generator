@@ -927,6 +927,10 @@
                     "property": {
                         "referrerPolicy": {
                             "type": "ReferrerPolicy"
+                        },
+                        "loading": {
+                            "name": "loading",
+                            "overrideType": "\"eager\" | \"lazy\""
                         }
                     }
                 }

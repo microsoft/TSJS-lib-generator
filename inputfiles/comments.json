@@ -1015,6 +1015,9 @@
                         "contentDocument": {
                             "comment": "Retrieves the document object of the page or frame."
                         },
+                        "loading": {
+                            "comment": "Sets or retrieves the policy for loading iframe elements that are outside the viewport."
+                        },
                         "longDesc": {
                             "comment": "Sets or retrieves a URI to a long description of the object."
                         }
