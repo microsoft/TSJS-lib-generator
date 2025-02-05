@@ -6895,7 +6895,7 @@ interface DOMRectList {
     readonly length: number;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMRectList/item) */
     item(index: number): DOMRect | null;
-    [index: number]: DOMRect;
+    [index: number]: DOMRect | undefined;
 }
 
 declare var DOMRectList: {
