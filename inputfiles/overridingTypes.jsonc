@@ -1418,6 +1418,12 @@
             "SVGSVGElement": {
                 "methods": {
                     "method": {
+                        "getElementById": {
+                            "name": "getElementById",
+                            "overrideSignatures": [
+                                "getElementById(elementId: string): Element | null"
+                            ]
+                        },
                         "getEnclosureList": {
                             "signature": {
                                 "0": {
